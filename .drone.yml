@@ -1,0 +1,26 @@
+kind: pipeline
+type: kubernetes
+name: default
+
+steps:
+  - name: build
+    image: mcr.microsoft.com/dotnet/sdk:5.0
+    commands:
+      - dotnet restore
+      - dotnet build --configuration Release
+
+  - name: publish
+    image: mcr.microsoft.com/dotnet/sdk:5.0
+    commands:
+      - dotnet publish --configuration Release --output ./publish
+
+  - name: deploy
+    image: lachlanevenson/k8s-kubectl:v1.20.2
+    settings:
+      kubernetes_server: https://kubernetes.default.svc
+      kubernetes_token:
+        from_secret: kubernetes_token
+      kubernetes_cert:
+        from_secret: kubernetes_cert
+    commands:
+      - kubectl apply -f kubernetes/deployment.yaml
