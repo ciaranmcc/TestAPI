@@ -24,6 +24,8 @@ public class WeatherForecastController : ControllerBase
         _logger.LogInformation("This is an INFO test");
 
         _logger.LogError("This is an ERROR test");
+
+        _logger.LogInformation("This is to test drone update");
         
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
