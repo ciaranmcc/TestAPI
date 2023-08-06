@@ -25,7 +25,7 @@ public class WeatherForecastController : ControllerBase
 
         _logger.LogError("This is an ERROR test");
 
-        _logger.LogInformation("Lets push again !!");
+        _logger.LogInformation("Lets push again 123!!");
         
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
