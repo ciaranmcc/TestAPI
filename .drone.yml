@@ -2,24 +2,45 @@ kind: pipeline
 type: docker
 name: default
 
+# The trigger section defines when this pipeline should be executed.
+trigger:
+  branch:
+    - main
+    - development
+
+# Environment variables that you might need for your build and tests.
+environment:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+# The steps that will be executed in this pipeline.
 steps:
   - name: build
-    image: mcr.microsoft.com/dotnet/sdk:5.0
+    image: mcr.microsoft.com/dotnet/sdk:7.0  # Use .NET Core 3.1 SDK or replace with a different version if needed.
     commands:
-      - dotnet restore
-      - dotnet build --configuration Release
-      # Add any additional build steps or tests here
+      - dotnet restore  # Restore NuGet packages.
+      - dotnet build --configuration Release  # Build the application in Release mode.
 
-  - name: publish
-    image: mcr.microsoft.com/dotnet/sdk:5.0
+  - name: test
+    image: mcr.microsoft.com/dotnet/sdk:7.0  # Use .NET Core 3.1 SDK or replace with a different version if needed.
     commands:
-      - dotnet publish --no-restore --configuration Release --output ./publish
+      - dotnet test --configuration Release --no-restore  # Run tests in Release mode.
 
-  - name: deploy
-    image: mcr.microsoft.com/dotnet/aspnet:5.0
-    commands:
-      - cd ./publish
-      # Add deployment commands here, like copying files to a server or container
+# Define the pipelines that will be executed.
+# In this example, only the default pipeline is used, but you can add more if needed.
+# Uncomment and adjust as necessary for multiple pipelines.
+#---
+#kind: pipeline
+#name: custom_pipeline
+#trigger:
+#  event:
+#    - tag
 
-# You can add additional steps as needed, such as running tests, code analysis, etc.
-# Refer to Drone CI documentation for more options and possibilities.
+#steps:
+#  - name: build_and_publish
+#    image: mcr.microsoft.com/dotnet/sdk:3.1
+#    commands:
+#      - dotnet restore
+#      - dotnet build --configuration Release
+#      - dotnet publish --configuration Release --output ./publish
+#      # Additional steps for publishing the application.
