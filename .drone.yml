@@ -5,7 +5,7 @@ name: default
 # The trigger section defines when this pipeline should be executed.
 trigger:
   branch:
-    - main
+    - master
     - development
 
 # Environment variables that you might need for your build and tests.
