@@ -1,49 +1,9 @@
 kind: pipeline
-type: docker
 name: default
 
-# The trigger section defines when this pipeline should be executed.
-trigger:
-  event:
-    - tag
-    - push
-  branch:
-    - master
-    - development
-
-# Environment variables that you might need for your build and tests.
-environment:
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  DOTNET_CLI_TELEMETRY_OPTOUT: true
-
-# The steps that will be executed in this pipeline.
 steps:
-  - name: build
-    image: mcr.microsoft.com/dotnet/sdk:7.0  # Use .NET Core 3.1 SDK or replace with a different version if needed.
-    commands:
-      - dotnet restore  # Restore NuGet packages.
-      - dotnet build --configuration Release  # Build the application in Release mode.
-
-  - name: test
-    image: mcr.microsoft.com/dotnet/sdk:7.0  # Use .NET Core 3.1 SDK or replace with a different version if needed.
-    commands:
-      - dotnet test --configuration Release --no-restore  # Run tests in Release mode.
-
-# Define the pipelines that will be executed.
-# In this example, only the default pipeline is used, but you can add more if needed.
-# Uncomment and adjust as necessary for multiple pipelines.
-#---
-#kind: pipeline
-#name: custom_pipeline
-#trigger:
-#  event:
-#    - tag
-
-#steps:
-#  - name: build_and_publish
-#    image: mcr.microsoft.com/dotnet/sdk:3.1
-#    commands:
-#      - dotnet restore
-#      - dotnet build --configuration Release
-#      - dotnet publish --configuration Release --output ./publish
-#      # Additional steps for publishing the application.
+- name: test
+  image: mcr.microsoft.com/dotnet/sdk:6.0
+  commands:
+  - dotnet build
+  - dotnet test
