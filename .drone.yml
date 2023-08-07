@@ -1,5 +1,5 @@
 kind: pipeline
-type: docker
+type: kubernetes
 name: default
 
 # The trigger section defines when this pipeline should be executed.
