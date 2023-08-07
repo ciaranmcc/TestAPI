@@ -12,13 +12,7 @@ trigger:
 
 # The steps that will be executed in this pipeline.
 steps:
-  - name: build
-    image: mcr.microsoft.com/dotnet/sdk:6.0  # Use .NET 5.0 SDK or replace with a different version if needed.
+  - name: print_message
+    image: alpine
     commands:
-      - dotnet restore  # Restore NuGet packages.
-      - dotnet build --configuration Release  # Build the application in Release mode.
-
-  - name: test
-    image: mcr.microsoft.com/dotnet/sdk:6.0  # Use .NET 5.0 SDK or replace with a different version if needed.
-    commands:
-      - dotnet test --configuration Release --no-restore  # Run tests in Release mode.
+      - echo "This is a custom message to the Drone console."
