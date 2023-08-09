@@ -23,7 +23,7 @@ steps:
   - name: publish
     image: mcr.microsoft.com/dotnet/sdk:7.0
     commands:
-      - cd path/to/your/net-core-app
+      - cd /drone/src
       - dotnet publish --configuration Release --output ./publish
 
   - name: docker-build
@@ -31,8 +31,8 @@ steps:
     environment:
       DOCKER_BUILDKIT: 1
     commands:
-      - cd path/to/your/net-core-app
-      - docker build -t your-docker-image-name ./publish
+      - cd /drone/src
+      - docker build -t TestApiyour-docker-image-name ./publish
 
   - name: kubectl-deploy
     image: bitnami/kubectl:latest
