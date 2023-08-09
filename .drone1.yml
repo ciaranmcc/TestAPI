@@ -32,7 +32,7 @@ steps:
       DOCKER_BUILDKIT: 1
     commands:
       - cd /drone/src
-      - docker build -t TestApiyour-docker-image-name ./publish
+      - docker build -t testapi ./publish
 
   - name: kubectl-deploy
     image: bitnami/kubectl:latest
