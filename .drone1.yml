@@ -16,7 +16,7 @@ steps:
   - name: build
     image: mcr.microsoft.com/dotnet/sdk:7.0
     commands:
-      - cd path/to/your/net-core-app
+      - cd TestApi
       - dotnet restore
       - dotnet build --configuration Release
 
