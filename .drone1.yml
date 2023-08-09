@@ -1,0 +1,45 @@
+kind: pipeline
+type: kubernetes
+name: default
+
+# The trigger section defines when this pipeline should be executed.
+trigger:
+  event:
+    - push
+    - tag
+  branch:
+    - main
+
+# The steps that will be executed in this pipeline.
+steps:
+  - name: build
+    image: mcr.microsoft.com/dotnet/sdk:7.0
+    commands:
+      - cd path/to/your/net-core-app
+      - dotnet restore
+      - dotnet build --configuration Release
+
+  - name: publish
+    image: mcr.microsoft.com/dotnet/sdk:7.0
+    commands:
+      - cd path/to/your/net-core-app
+      - dotnet publish --configuration Release --output ./publish
+
+  - name: docker-build
+    image: docker:latest
+    environment:
+      DOCKER_BUILDKIT: 1
+    commands:
+      - cd path/to/your/net-core-app
+      - docker build -t your-docker-image-name ./publish
+
+  - name: kubectl-deploy
+    image: bitnami/kubectl:latest
+    settings:
+      kubectl_server: https://your-kubernetes-cluster-server
+      kubectl_token: $KUBE_TOKEN
+      kubectl_context: your-kubernetes-context
+    commands:
+      - cd path/to/your/kubernetes/manifests
+      - kubectl apply -f deployment.yaml
+      - kubectl apply -f service.yaml
