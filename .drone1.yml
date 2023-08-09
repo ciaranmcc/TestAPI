@@ -11,6 +11,7 @@ trigger:
     - main
 
 # The steps that will be executed in this pipeline.
+# new comment
 steps:
   - name: build
     image: mcr.microsoft.com/dotnet/sdk:7.0
