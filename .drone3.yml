@@ -1,4 +1,4 @@
-# This is a c# deployment pipeline
+# This is a yaml deployment pipeline
 kind: pipeline
 type: kubernetes
 name: default

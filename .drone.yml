@@ -1,3 +1,4 @@
+# This was just a drone runner testing pipeline
 kind: pipeline
 type: kubernetes
 name: default
