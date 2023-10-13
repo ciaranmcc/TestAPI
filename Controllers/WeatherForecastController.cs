@@ -23,7 +23,7 @@ public class WeatherForecastController : ControllerBase
     {
         _logger.LogInformation("This is an INFO test");
 
-        _logger.LogError("This is an ERROR test again");
+        _logger.LogError("This is an ERROR test again !");
 
         _logger.LogError("This is another test");
         
