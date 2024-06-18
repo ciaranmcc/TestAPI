@@ -43,6 +43,11 @@ steps:
   inputs:
     Contents: '**\bin\**'
     TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: '**\publish\**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
     
 - task: PublishBuildArtifacts@1
   inputs:
