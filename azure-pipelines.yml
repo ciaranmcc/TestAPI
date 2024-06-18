@@ -31,7 +31,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
-    arguments: '-c $(buildConfiguration) -o $(build.artifactStagingDirectory)/publish'
+    arguments: '-c $(buildConfiguration) -o publish'
     zipAfterPublish: false
 
 - task: VSTest@2
@@ -41,7 +41,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    Contents: '**\bin\**'
+    Contents: '**\publish\**'
     TargetFolder: '$(build.artifactstagingdirectory)'
     
 - task: PublishBuildArtifacts@1
